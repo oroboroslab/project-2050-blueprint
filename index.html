@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project 2050 — Oroboros Labs — Civilization Classification 5</title>
+  <meta name="description" content="Project 2050 Operational Blueprint. Oroboros Labs, Office of the Architect. Civilization Classification 5 — Government Level." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ============================================================
+     INLINE SVG SYMBOLS — referenced throughout the page
+     ============================================================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Mini ouroboros (corners) -->
+    <symbol id="sym-ouroboros" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="32" r="22" stroke-dasharray="3 3" opacity="0.4"/>
+        <path d="M32 10
+                 a22 22 0 1 1 -15.5 37.6
+                 a18 18 0 1 0 25 -25
+                 l-3 -2.5
+                 l4.5 -1
+                 l-1 4.5 z"/>
+        <circle cx="46" cy="18" r="1.8" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Globe (advertisement motif) -->
+    <symbol id="sym-globe" viewBox="0 0 600 600">
+      <defs>
+        <radialGradient id="gFill" cx="38%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#2a6fd6"/>
+          <stop offset="55%" stop-color="#0b3d91"/>
+          <stop offset="100%" stop-color="#001a4d"/>
+        </radialGradient>
+        <radialGradient id="gGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="80%" stop-color="#0b3d91" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#6aa8ff" stop-opacity="0.35"/>
+        </radialGradient>
+        <linearGradient id="gHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+          <stop offset="45%" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <circle cx="300" cy="300" r="290" fill="url(#gGlow)"/>
+      <circle cx="300" cy="300" r="260" fill="url(#gFill)"/>
+      <g stroke="#9fc3ff" stroke-width="1.2" fill="none" opacity="0.55">
+        <ellipse cx="300" cy="300" rx="260" ry="30"/>
+        <ellipse cx="300" cy="300" rx="260" ry="80"/>
+        <ellipse cx="300" cy="300" rx="260" ry="140"/>
+        <ellipse cx="300" cy="300" rx="260" ry="210"/>
+        <ellipse cx="300" cy="300" rx="30" ry="260"/>
+        <ellipse cx="300" cy="300" rx="80" ry="260"/>
+        <ellipse cx="300" cy="300" rx="140" ry="260"/>
+        <ellipse cx="300" cy="300" rx="210" ry="260"/>
+        <line x1="300" y1="40" x2="300" y2="560"/>
+        <line x1="40" y1="300" x2="560" y2="300"/>
+      </g>
+      <g fill="#e6f0ff" opacity="0.82">
+        <path d="M190 215 q-18 25 -10 55 q10 35 -2 70 q-6 22 12 45 q18 22 10 55 q-4 16 8 30
+                 q14 15 30 5 q16 -10 10 -35 q-5 -22 8 -40 q12 -18 2 -45 q-10 -28 -20 -55
+                 q-10 -28 -30 -45 q-12 -10 -18 -5 z"/>
+        <path d="M305 170 q20 -5 35 10 q14 14 8 34 q-4 14 6 26 q14 18 8 42 q-6 22 6 42
+                 q10 18 -4 38 q-14 20 -34 22 q-20 2 -28 -18 q-8 -20 4 -40 q10 -18 -4 -36
+                 q-16 -22 -10 -50 q4 -22 13 -40 q4 -8 0 -30 z"/>
+        <path d="M370 180 q30 -8 55 6 q25 14 40 38 q14 24 4 48 q-10 24 -34 30 q-26 6 -38 -14
+                 q-10 -18 -30 -20 q-18 -2 -16 -22 q2 -22 10 -38 q5 -12 9 -28 z"/>
+        <path d="M400 400 q25 -10 48 6 q20 14 18 34 q-2 20 -26 26 q-24 6 -42 -8
+                 q-16 -12 -14 -30 q2 -16 16 -28 z"/>
+      </g>
+      <circle cx="300" cy="300" r="260" fill="url(#gHighlight)"/>
+      <g stroke="#c9a227" stroke-width="1.5" fill="none" opacity="0.9">
+        <ellipse cx="300" cy="300" rx="285" ry="90" transform="rotate(-18 300 300)"/>
+        <circle cx="560" cy="220" r="4" fill="#c9a227"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============================================================
+     CLASSIFICATION BAR — TOP
+     ============================================================ -->
+<div class="classification-bar top">
+  CLASSIFIED <span class="sep">//</span> OROBOROS <span class="sep">//</span> EYES ONLY
+  <span class="sep">//</span> CIVILIZATION CLASSIFICATION 5 — GOVERNMENT LEVEL
+</div>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<header class="site-nav">
+  <div class="inner">
+    <a class="brand" href="#top">
+      <svg aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      Oroboros Labs <span class="bar">|</span> Project 2050
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#briefing">Briefing</a>
+      <a href="#systems">Systems</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#documents">Documents</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="top">
+  <div class="inner">
+    <div>
+      <div class="kicker">Office of the Architect · 22 April 2026</div>
+      <h1>A civilization, <span class="highlight">rebuilt in twenty-five years.</span></h1>
+      <p class="lede">
+        Project 2050 is the operational blueprint for global hybrid civilization —
+        sovereign creation, open periphery, protected core. One framework. One
+        timeline. One planet, collaborating.
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href="#briefing">Read the Briefing</a>
+        <a class="btn ghost" href="docs/01-civilization-briefing.md">Full Document</a>
+      </div>
+    </div>
+    <div class="hero-globe" aria-hidden="true">
+      <svg><use href="#sym-globe"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     KEY JUDGMENTS
+     ============================================================ -->
+<section class="kj-section" id="briefing">
+  <div class="inner">
+    <h2>Key Judgments</h2>
+    <div class="kj-grid">
+      <div class="kj-card">
+        <div class="n">KJ-1</div>
+        <p>Pure capitalism, pure state control, pure open source, and pure proprietary have each failed to deliver sustained innovation, equitable distribution, or long-term civilizational stability.</p>
+      </div>
+      <div class="kj-card">
+        <div class="n">KJ-2</div>
+        <p>A hybrid framework — retaining what each paradigm produces functionally, rejecting what it produces destructively — is both viable and necessary.</p>
+      </div>
+      <div class="kj-card">
+        <div class="n">KJ-3</div>
+        <p>Autonomous robotic construction (TRITON-class) collapses structural build times from months to days. This single capability makes the 25-year timeline achievable.</p>
+      </div>
+      <div class="kj-card">
+        <div class="n">KJ-4</div>
+        <p>Global public opinion is already shifting toward U.S.–China collaboration as necessary and inevitable. Polling confirms the trajectory.</p>
+      </div>
+      <div class="kj-card">
+        <div class="n">KJ-5</div>
+        <p>The post-scarcity economic model is achievable within the 25-year window — if construction phase begins no later than 2028.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ADVERTISEMENT CARDS — CORE SYSTEMS
+     Each card: globe extending off top/bottom + 4 corner ouroboros logos
+     ============================================================ -->
+<section class="ad-section" id="systems">
+  <div class="section-header">
+    <div class="eyebrow">The Working Model</div>
+    <h2>Six systems. One civilization.</h2>
+    <p>Every system in the blueprint is modular, replaceable, and buildable now with current materials science. Nothing is theoretical. Everything is on the critical path.</p>
+  </div>
+
+  <div class="ad-grid">
+
+    <!-- CARD 1 -->
+    <article class="ad-card">
+      <svg class="corner tl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner tr" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner bl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner br" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <div class="globe" aria-hidden="true"><svg><use href="#sym-globe"/></svg></div>
+      <div class="content">
+        <div class="card-eyebrow">Triton Class · Autonomous Construction</div>
+        <h3>Three scales. One software build.</h3>
+        <p>TRITON-1 for homes and community. TRITON-2 for halls and institutional structures. TRITON-3 for stadiums, cathedrals, and ocean platforms. Identical architecture — only the scale changes.</p>
+        <div class="tag-row">
+          <span class="tag">Swarm Mesh</span>
+          <span class="tag">Tool Heads</span>
+          <span class="tag">Build Rate · 45 min / module</span>
+        </div>
+        <div class="card-footer"><span>Critical Enabler</span><span>2026 → 2030</span></div>
+      </div>
+    </article>
+
+    <!-- CARD 2 -->
+    <article class="ad-card royal">
+      <svg class="corner tl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner tr" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner bl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner br" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <div class="globe" aria-hidden="true"><svg><use href="#sym-globe"/></svg></div>
+      <div class="content">
+        <div class="card-eyebrow">Ocean Platform Cities</div>
+        <h3>Grounded from the seabed. Owned by no one.</h3>
+        <p>Solid titanium columns drilled into bedrock. Modular replaceable sections top to bottom. Zero-coating, zero-corrosion marine architecture — the first true ocean city, built by the world.</p>
+        <div class="tag-row">
+          <span class="tag">Ti-6Al-4V</span>
+          <span class="tag">No Beams · Solid Plate</span>
+          <span class="tag">Indefinite Life</span>
+        </div>
+        <div class="card-footer"><span>Shared Global Asset</span><span>2026 → 2038</span></div>
+      </div>
+    </article>
+
+    <!-- CARD 3 -->
+    <article class="ad-card">
+      <svg class="corner tl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner tr" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner bl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner br" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <div class="globe" aria-hidden="true"><svg><use href="#sym-globe"/></svg></div>
+      <div class="content">
+        <div class="card-eyebrow">SEER Device · Samsung Partnership</div>
+        <h3>A true tricorder, at nominal cost.</h3>
+        <p>Repurposed Snapdragon returns. Millimeter-wave heart-rate radar. UWB digital key. Matter, Zigbee, IR, Wi-Fi. Controls any device — and downloads new protocols as they emerge.</p>
+        <div class="tag-row">
+          <span class="tag">Ceramic Body</span>
+          <span class="tag">60 GHz Radar</span>
+          <span class="tag">Universal Control</span>
+        </div>
+        <div class="card-footer"><span>Ecosystem Entry</span><span>2030 →</span></div>
+      </div>
+    </article>
+
+    <!-- CARD 4 -->
+    <article class="ad-card">
+      <svg class="corner tl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner tr" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner bl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner br" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <div class="globe" aria-hidden="true"><svg><use href="#sym-globe"/></svg></div>
+      <div class="content">
+        <div class="card-eyebrow">Water &amp; Food Systems</div>
+        <h3>Every city produces its own water.</h3>
+        <p>Reverse osmosis at the core, PTFE distribution at the edge, and food bays that double as condensation harvesters. Gravity-fed plant lines — no pumps, no biofilm, no replacement cycle.</p>
+        <div class="tag-row">
+          <span class="tag">PTFE Hose</span>
+          <span class="tag">Condensate Return</span>
+          <span class="tag">Hydroponic + Aeroponic</span>
+        </div>
+        <div class="card-footer"><span>Self-Sufficient</span><span>2028 → 2038</span></div>
+      </div>
+    </article>
+
+    <!-- CARD 5 -->
+    <article class="ad-card royal">
+      <svg class="corner tl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner tr" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner bl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner br" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <div class="globe" aria-hidden="true"><svg><use href="#sym-globe"/></svg></div>
+      <div class="content">
+        <div class="card-eyebrow">Cylinder &amp; Stacked Cities</div>
+        <h3>Nature within. Sky above. Habitat below.</h3>
+        <p>120m cylinders with open inner parks and sky gardens. Stacked layers above existing urban cores — lower tiers returned to wildlife habitat and seasonal food production.</p>
+        <div class="tag-row">
+          <span class="tag">Modular Floors</span>
+          <span class="tag">Inner Light Shaft</span>
+          <span class="tag">Cross-Corridors</span>
+        </div>
+        <div class="card-footer"><span>Vertical Civilization</span><span>2032 → 2045</span></div>
+      </div>
+    </article>
+
+    <!-- CARD 6 -->
+    <article class="ad-card">
+      <svg class="corner tl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner tr" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner bl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner br" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <div class="globe" aria-hidden="true"><svg><use href="#sym-globe"/></svg></div>
+      <div class="content">
+        <div class="card-eyebrow">Underground &amp; Hillside</div>
+        <h3>Retractable sky. Earth-insulated calm.</h3>
+        <p>Underground residences with transparent retractable roofs rated to 5,000 kg/m². Hillside communities that leave the surface to wildlife. Earth-tube ventilation. Geothermal climate.</p>
+        <div class="tag-row">
+          <span class="tag">Laminated Glass-Poly</span>
+          <span class="tag">Auto Wind / Rain Close</span>
+          <span class="tag">Zero Surface Impact</span>
+        </div>
+        <div class="card-footer"><span>Land Returned to Nature</span><span>2028 → 2044</span></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     TIMELINE
+     ============================================================ -->
+<section class="timeline" id="timeline">
+  <div class="section-header" style="margin-bottom: 8px;">
+    <div class="eyebrow">25-Year Operational Timeline</div>
+    <h2>Foundation → Completion.</h2>
+    <p>The window closes if construction phase does not begin by 2028. Everything depends on the TRITON-class robots arriving on schedule.</p>
+  </div>
+  <div class="timeline-track">
+    <div class="phase">
+      <div class="dot"></div>
+      <div class="years">2026 — 2030</div>
+      <h4>Foundation</h4>
+      <p>Robotic systems designed. Consortium formed. EV conversion begins.</p>
+    </div>
+    <div class="phase">
+      <div class="dot"></div>
+      <div class="years">2030 — 2038</div>
+      <h4>Construction</h4>
+      <p>Ocean platform begins. Desert pipelines deploy. Vertical cities rise.</p>
+    </div>
+    <div class="phase">
+      <div class="dot"></div>
+      <div class="years">2038 — 2044</div>
+      <h4>Integration</h4>
+      <p>Submerged transit opens. Stacked cities complete. Rail fully operational.</p>
+    </div>
+    <div class="phase">
+      <div class="dot"></div>
+      <div class="years">2044 — 2048</div>
+      <h4>Transformation</h4>
+      <p>Post-money conversion. Allotment active globally. Free healthcare universal.</p>
+    </div>
+    <div class="phase">
+      <div class="dot"></div>
+      <div class="years">2048 — 2050</div>
+      <h4>Completion</h4>
+      <p>Dynamic equilibrium achieved. Level 2 birth optimization standard.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     DOCUMENTS — ADVERTISEMENT CARDS FOR EACH DOC
+     ============================================================ -->
+<section class="ad-section alt" id="documents">
+  <div class="section-header">
+    <div class="eyebrow">The Document Set</div>
+    <h2>Three documents. One architecture.</h2>
+    <p>Civilization Classification 5 — Government Level. Architect Direct. No External Dissemination Without Authority.</p>
+  </div>
+
+  <div class="ad-grid">
+
+    <article class="ad-card royal">
+      <svg class="corner tl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner tr" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner bl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner br" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <div class="globe" aria-hidden="true"><svg><use href="#sym-globe"/></svg></div>
+      <div class="content">
+        <div class="card-eyebrow">Document I · OL-C5-2050-04222026</div>
+        <h3>Civilization Briefing — Operational Blueprint</h3>
+        <p>The 25-year blueprint. Key judgments. System-failure analysis. Hybrid synthesis. Phases, risks, evidence base, and the five-priority recommendation.</p>
+        <div class="tag-row">
+          <span class="tag">Strategic</span>
+          <span class="tag">Phase Timeline</span>
+          <span class="tag">Recommendation</span>
+        </div>
+        <div class="card-footer"><a href="docs/01-civilization-briefing.md" style="color:inherit; border-color: rgba(255,255,255,0.4);">Open Document →</a><span>22 Apr 2026</span></div>
+      </div>
+    </article>
+
+    <article class="ad-card">
+      <svg class="corner tl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner tr" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner bl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner br" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <div class="globe" aria-hidden="true"><svg><use href="#sym-globe"/></svg></div>
+      <div class="content">
+        <div class="card-eyebrow">Document II · OL-TSD-2050-04222026</div>
+        <h3>Technical Specification — Core Systems</h3>
+        <p>TRITON-class robots in three scales. Ocean platform materials. SEER device sensor suite. Partnership delegation. Materials summary and modularity standard.</p>
+        <div class="tag-row">
+          <span class="tag">Engineering</span>
+          <span class="tag">Materials</span>
+          <span class="tag">Partnerships</span>
+        </div>
+        <div class="card-footer"><a href="docs/02-technical-specification.md">Open Document →</a><span>Rev 0</span></div>
+      </div>
+    </article>
+
+    <article class="ad-card">
+      <svg class="corner tl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner tr" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner bl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <svg class="corner br" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      <div class="globe" aria-hidden="true"><svg><use href="#sym-globe"/></svg></div>
+      <div class="content">
+        <div class="card-eyebrow">Document III · OL-SAC-2050-04222026</div>
+        <h3>System Architecture &amp; Code Instruction</h3>
+        <p>Control stacks for TRITON, SEER, and water purification. Structural layouts for food structures, cylinder cities, underground housing, hillside and plateau developments.</p>
+        <div class="tag-row">
+          <span class="tag">Control Stack</span>
+          <span class="tag">Layouts</span>
+          <span class="tag">Modularity Standard</span>
+        </div>
+        <div class="card-footer"><a href="docs/03-system-architecture.md">Open Document →</a><span>General Spec</span></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h5>Oroboros Labs</h5>
+      <p style="margin:0 0 12px; color: rgba(255,255,255,0.72); font-size: 14px;">
+        Office of the Architect. The blueprint is not ideological — it is operational infrastructure
+        design derived from first principles and validated through demonstrated capability.
+      </p>
+      <p style="margin:0; color: rgba(255,255,255,0.55); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;">
+        Document Set OL-C5-2050-04222026
+      </p>
+    </div>
+    <div>
+      <h5>Documents</h5>
+      <ul>
+        <li><a href="docs/01-civilization-briefing.md">Civilization Briefing</a></li>
+        <li><a href="docs/02-technical-specification.md">Technical Specification</a></li>
+        <li><a href="docs/03-system-architecture.md">System Architecture</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Sections</h5>
+      <ul>
+        <li><a href="#briefing">Key Judgments</a></li>
+        <li><a href="#systems">Systems</a></li>
+        <li><a href="#timeline">Timeline</a></li>
+      </ul>
+    </div>
+    <div class="copy">
+      <span>Classified · Oroboros · Eyes Only</span>
+      <span>Civilization Classification 5 — Government Level</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     CLASSIFICATION BAR — BOTTOM
+     ============================================================ -->
+<div class="classification-bar">
+  CLASSIFIED <span class="sep">//</span> OROBOROS <span class="sep">//</span> EYES ONLY
+  <span class="sep">//</span> END OF TRANSMISSION
+</div>
+
+</body>
+</html>
