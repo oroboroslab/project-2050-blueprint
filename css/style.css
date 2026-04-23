@@ -243,10 +243,10 @@ a:hover { color: #fff; border-bottom-color: #fff; }
 /* hero globe — just the gold ring, large, mostly off-page right, 30% */
 .hero-globe {
   position: absolute;
-  right: -420px;
+  right: -252px;
   top: 50%;
   transform: translateY(-50%);
-  width: 900px;
+  width: 540px;
   max-width: 90vw;
   aspect-ratio: 1 / 1;
   z-index: 1;            /* BEHIND the text */
@@ -718,14 +718,14 @@ a:hover { color: #fff; border-bottom-color: #fff; }
    ============================================================ */
 
 @media (max-width: 1100px) {
-  .hero-globe { width: 780px; right: -360px; opacity: 0.3; }
+  .hero-globe { width: 468px; right: -216px; opacity: 0.3; }
 }
 
 @media (max-width: 900px) {
   .hero { padding: 80px 20px 96px; min-height: 560px; }
   .hero-globe {
-    right: -320px;
-    width: 680px;
+    right: -192px;
+    width: 408px;
     max-width: 120vw;
     opacity: 0.28;
   }
