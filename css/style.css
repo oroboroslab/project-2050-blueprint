@@ -240,25 +240,18 @@ a:hover { color: #fff; border-bottom-color: #fff; }
 }
 .btn.ghost:hover { background: rgba(255, 255, 255, 0.08); border-color: #fff; }
 
-/* hero globe — large, shifted right (off-screen edge) */
+/* hero globe — just the gold ring, large, mostly off-page right, 30% */
 .hero-globe {
   position: absolute;
-  right: -240px;
+  right: -420px;
   top: 50%;
   transform: translateY(-50%);
-  width: 620px;
-  max-width: 60vw;
+  width: 900px;
+  max-width: 90vw;
   aspect-ratio: 1 / 1;
   z-index: 1;            /* BEHIND the text */
   pointer-events: none;
-  opacity: 0.9;
-  /* feather every edge of the image into the page */
-  -webkit-mask-image: radial-gradient(circle at 50% 50%,
-                        #000 0%, #000 38%, rgba(0,0,0,0.55) 60%,
-                        rgba(0,0,0,0) 78%);
-          mask-image: radial-gradient(circle at 50% 50%,
-                        #000 0%, #000 38%, rgba(0,0,0,0.55) 60%,
-                        rgba(0,0,0,0) 78%);
+  opacity: 0.3;
 }
 .hero-globe svg {
   width: 100%;
@@ -696,16 +689,16 @@ a:hover { color: #fff; border-bottom-color: #fff; }
    ============================================================ */
 
 @media (max-width: 1100px) {
-  .hero-globe { width: 520px; right: -200px; opacity: 0.85; }
+  .hero-globe { width: 780px; right: -360px; opacity: 0.3; }
 }
 
 @media (max-width: 900px) {
   .hero { padding: 80px 20px 96px; min-height: 560px; }
   .hero-globe {
-    right: -160px;
-    width: 440px;
-    max-width: 90vw;
-    opacity: 0.55;
+    right: -320px;
+    width: 680px;
+    max-width: 120vw;
+    opacity: 0.28;
   }
   .nav-links { gap: 14px; font-size: 12px; }
   .site-footer .inner { grid-template-columns: 1fr; }
