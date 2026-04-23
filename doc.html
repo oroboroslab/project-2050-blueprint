@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document — Project 2050 — Oroboros Labs</title>
+  <meta name="description" content="Project 2050 Document Viewer. Oroboros Labs, Office of the Architect." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .doc-toolbar {
+      max-width: 860px;
+      margin: 32px auto 0;
+      padding: 0 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-display);
+      font-size: 12px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .doc-toolbar a { color: var(--gold); border-bottom-color: rgba(230,192,74,0.35); }
+    .doc-toolbar a:hover { color: #fff; border-bottom-color: #fff; }
+    .doc-tabs {
+      max-width: 860px;
+      margin: 12px auto 0;
+      padding: 0 28px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .doc-tabs a {
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.04);
+      color: var(--text-mute);
+    }
+    .doc-tabs a.active {
+      background: rgba(230,192,74,0.12);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .doc-tabs a:hover { color: #fff; }
+    .doc-wrap ul, .doc-wrap ol { padding-left: 22px; }
+    .doc-wrap li { margin-bottom: 6px; }
+    .doc-wrap p { margin: 0 0 16px; }
+    .doc-wrap strong { color: #fff; }
+    .doc-wrap hr {
+      border: 0;
+      border-top: 1px solid var(--line-dark);
+      margin: 40px 0;
+    }
+    #doc-body .doc-meta {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    #doc-loading, #doc-error {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 28px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line-dark);
+      border-radius: var(--radius);
+      text-align: center;
+      color: var(--text-mute);
+    }
+    #doc-error { color: #ffb4b4; border-color: rgba(255,120,120,0.3); }
+  </style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="sym-ouroboros" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="32" r="22" stroke-dasharray="3 3" opacity="0.4"/>
+        <path d="M32 10 a22 22 0 1 1 -15.5 37.6 a18 18 0 1 0 25 -25 l-3 -2.5 l4.5 -1 l-1 4.5 z"/>
+        <circle cx="46" cy="18" r="1.8" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="classification-bar top">
+  CLASSIFIED <span class="sep">//</span> OROBOROS <span class="sep">//</span> EYES ONLY
+  <span class="sep">//</span> CIVILIZATION CLASSIFICATION 5 — GOVERNMENT LEVEL
+</div>
+
+<header class="site-nav">
+  <div class="inner">
+    <a class="brand" href="index.html">
+      <svg aria-hidden="true"><use href="#sym-ouroboros"/></svg>
+      Oroboros Labs <span class="bar">|</span> Project 2050
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html#briefing">Briefing</a>
+      <a href="index.html#systems">Systems</a>
+      <a href="index.html#timeline">Timeline</a>
+      <a href="index.html#documents">Documents</a>
+    </nav>
+  </div>
+</header>
+
+<div class="doc-toolbar">
+  <span id="doc-id">Document</span>
+  <a href="index.html">← Back to Blueprint</a>
+</div>
+
+<nav class="doc-tabs" id="doc-tabs"></nav>
+
+<main class="doc-wrap">
+  <div id="doc-loading">Loading document…</div>
+  <div id="doc-error" style="display:none"></div>
+  <article id="doc-body" style="display:none"></article>
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h5>Oroboros Labs</h5>
+      <p style="margin:0 0 12px; color: rgba(255,255,255,0.72); font-size: 14px;">
+        Office of the Architect. The blueprint is not ideological — it is operational infrastructure
+        design derived from first principles and validated through demonstrated capability.
+      </p>
+      <p style="margin:0; color: rgba(255,255,255,0.55); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;">
+        Document Set OL-C5-2050-04222026
+      </p>
+    </div>
+    <div>
+      <h5>Documents</h5>
+      <ul>
+        <li><a href="doc.html?d=01-civilization-briefing">Civilization Briefing</a></li>
+        <li><a href="doc.html?d=02-technical-specification">Technical Specification</a></li>
+        <li><a href="doc.html?d=03-system-architecture">System Architecture</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Sections</h5>
+      <ul>
+        <li><a href="index.html#briefing">Key Judgments</a></li>
+        <li><a href="index.html#systems">Systems</a></li>
+        <li><a href="index.html#timeline">Timeline</a></li>
+      </ul>
+    </div>
+    <div class="copy">
+      <span>Classified · Oroboros · Eyes Only</span>
+      <span>Civilization Classification 5 — Government Level</span>
+    </div>
+  </div>
+</footer>
+
+<div class="classification-bar">
+  CLASSIFIED <span class="sep">//</span> OROBOROS <span class="sep">//</span> EYES ONLY
+  <span class="sep">//</span> END OF TRANSMISSION
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  const DOCS = {
+    '01-civilization-briefing': { title: 'Civilization Briefing — Operational Blueprint', id: 'OL-C5-2050-04222026', file: 'docs/01-civilization-briefing.md' },
+    '02-technical-specification': { title: 'Technical Specification — Core Systems', id: 'OL-TSD-2050-04222026', file: 'docs/02-technical-specification.md' },
+    '03-system-architecture': { title: 'System Architecture & Code Instruction', id: 'OL-SAC-2050-04222026', file: 'docs/03-system-architecture.md' }
+  };
+
+  const params = new URLSearchParams(location.search);
+  const key = params.get('d') || '01-civilization-briefing';
+  const meta = DOCS[key] || DOCS['01-civilization-briefing'];
+
+  document.title = meta.title + ' — Project 2050 — Oroboros Labs';
+  document.getElementById('doc-id').textContent = 'Doc · ' + meta.id;
+
+  // Build tabs
+  const tabs = document.getElementById('doc-tabs');
+  Object.entries(DOCS).forEach(([k, v]) => {
+    const a = document.createElement('a');
+    a.href = 'doc.html?d=' + k;
+    a.textContent = v.title.split(' — ')[0];
+    if (k === key) a.classList.add('active');
+    tabs.appendChild(a);
+  });
+
+  const loadingEl = document.getElementById('doc-loading');
+  const errorEl = document.getElementById('doc-error');
+  const bodyEl = document.getElementById('doc-body');
+
+  fetch(meta.file)
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+    .then(md => {
+      marked.setOptions({ headerIds: true, mangle: false, gfm: true, breaks: false });
+      const html = marked.parse(md);
+      bodyEl.innerHTML = '<span class="doc-meta">' + meta.id + '</span>' + html;
+      loadingEl.style.display = 'none';
+      bodyEl.style.display = 'block';
+    })
+    .catch(err => {
+      loadingEl.style.display = 'none';
+      errorEl.style.display = 'block';
+      errorEl.textContent = 'Failed to load document: ' + err.message + '. Try refreshing.';
+    });
+</script>
+
+</body>
+</html>
