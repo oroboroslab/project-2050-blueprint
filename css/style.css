@@ -240,14 +240,14 @@ a:hover { color: #fff; border-bottom-color: #fff; }
 }
 .btn.ghost:hover { background: rgba(255, 255, 255, 0.08); border-color: #fff; }
 
-/* enlarged hero globe — sits in the background, feathered to bg */
+/* hero globe — half-size, flush right, feathered into bg */
 .hero-globe {
   position: absolute;
-  right: -12%;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 1100px;
-  max-width: 90vw;
+  width: 550px;
+  max-width: 55vw;
   aspect-ratio: 1 / 1;
   z-index: 1;            /* BEHIND the text */
   pointer-events: none;
@@ -264,7 +264,6 @@ a:hover { color: #fff; border-bottom-color: #fff; }
   width: 100%;
   height: 100%;
   display: block;
-  /* no drop-shadow — shadow created a visible disc edge */
 }
 
 /* ============================================================
@@ -697,15 +696,15 @@ a:hover { color: #fff; border-bottom-color: #fff; }
    ============================================================ */
 
 @media (max-width: 1100px) {
-  .hero-globe { width: 900px; right: -18%; opacity: 0.7; }
+  .hero-globe { width: 460px; right: 0; opacity: 0.8; }
 }
 
 @media (max-width: 900px) {
   .hero { padding: 80px 20px 96px; min-height: 640px; }
   .hero-globe {
-    right: -40%;
-    width: 700px;
-    max-width: 140vw;
+    right: -10%;
+    width: 420px;
+    max-width: 80vw;
     opacity: 0.55;
   }
   .nav-links { gap: 14px; font-size: 12px; }
