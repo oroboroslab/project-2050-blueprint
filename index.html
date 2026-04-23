@@ -99,7 +99,7 @@
       </div>
     </div>
     <div class="hero-globe" aria-hidden="true">
-      <svg><use href="#sym-globe"/></svg>
+      <canvas id="earth-canvas"></canvas>
     </div>
   </div>
 </section>
@@ -244,7 +244,7 @@
     </article>
 
     <!-- CARD 6 -->
-    <article class="ad-card">
+    <article class="ad-card gold-grade">
       <svg class="corner tl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
       <svg class="corner tr" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
       <svg class="corner bl" aria-hidden="true"><use href="#sym-ouroboros"/></svg>
@@ -423,5 +423,171 @@
   <span class="sep">//</span> END OF TRANSMISSION
 </div>
 
+<!-- ============================================================
+     3-D EARTH GLOBE (Three.js)
+     ============================================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  var canvas = document.getElementById('earth-canvas');
+  if (!canvas || typeof THREE === 'undefined') return;
+
+  /* ── PROCEDURAL EARTH TEXTURE ───────────────────────────────── */
+  function makeEarthTexture() {
+    var W = 1024, H = 512;
+    var c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    var ctx = c.getContext('2d');
+
+    /* ocean base */
+    ctx.fillStyle = '#001440';
+    ctx.fillRect(0, 0, W, H);
+    var og = ctx.createLinearGradient(0, 0, W, H);
+    og.addColorStop(0,   'rgba(10,50,130,0.9)');
+    og.addColorStop(0.5, 'rgba(20,70,170,0.7)');
+    og.addColorStop(1,   'rgba(0,10,50,0.95)');
+    ctx.fillStyle = og;
+    ctx.fillRect(0, 0, W, H);
+
+    /* land blobs [cx, cy, rx, ry, rot] normalised 0-1 */
+    var lands = [
+      [0.58, 0.30, 0.21, 0.12,  0.05],  /* Eurasia main       */
+      [0.47, 0.37, 0.08, 0.10, -0.12],  /* W. Europe          */
+      [0.69, 0.21, 0.08, 0.07,  0.00],  /* E. Asia extension  */
+      [0.52, 0.54, 0.065,0.14,  0.00],  /* Africa             */
+      [0.20, 0.32, 0.10, 0.09, -0.10],  /* N. America north   */
+      [0.22, 0.44, 0.07, 0.07,  0.10],  /* N. America south   */
+      [0.27, 0.63, 0.055,0.12, -0.10],  /* S. America         */
+      [0.82, 0.62, 0.055,0.048, 0.20],  /* Australia          */
+      [0.25, 0.17, 0.028,0.055, 0.00],  /* Greenland          */
+      [0.86, 0.32, 0.018,0.032, 0.00],  /* Japan              */
+    ];
+    lands.forEach(function (l) {
+      var cx=l[0],cy=l[1],rx=l[2],ry=l[3],rot=l[4];
+      ctx.save();
+      ctx.translate(cx*W, cy*H);
+      ctx.rotate(rot);
+      var lg = ctx.createRadialGradient(0,-0.2*ry*H,0, 0,0,Math.max(rx*W,ry*H));
+      lg.addColorStop(0,   '#5ab030');
+      lg.addColorStop(0.5, '#2e6b18');
+      lg.addColorStop(1,   '#1e4d10');
+      ctx.fillStyle = lg;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, rx*W, ry*H, 0, 0, Math.PI*2);
+      ctx.fill();
+      ctx.restore();
+    });
+
+    /* ice caps */
+    var arc = ctx.createRadialGradient(W/2,0,0, W/2,0,80);
+    arc.addColorStop(0, 'rgba(230,240,255,1)');
+    arc.addColorStop(1, 'rgba(180,210,240,0)');
+    ctx.fillStyle = arc;
+    ctx.beginPath(); ctx.ellipse(W/2,0,W*0.32,55,0,0,Math.PI*2); ctx.fill();
+
+    var ant = ctx.createRadialGradient(W/2,H,0, W/2,H,80);
+    ant.addColorStop(0, 'rgba(225,238,255,1)');
+    ant.addColorStop(1, 'rgba(180,210,240,0)');
+    ctx.fillStyle = ant;
+    ctx.beginPath(); ctx.ellipse(W/2,H,W*0.40,50,0,0,Math.PI*2); ctx.fill();
+
+    /* specular shimmer */
+    var sp = ctx.createRadialGradient(W*0.35,H*0.3,0, W*0.35,H*0.3,H*0.45);
+    sp.addColorStop(0, 'rgba(120,180,255,0.10)');
+    sp.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = sp; ctx.fillRect(0,0,W,H);
+
+    return new THREE.CanvasTexture(c);
+  }
+
+  /* ── RENDERER ───────────────────────────────────────────────── */
+  var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  var scene  = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+  camera.position.z = 2.6;
+
+  /* ── EARTH ──────────────────────────────────────────────────── */
+  var earth = new THREE.Mesh(
+    new THREE.SphereGeometry(1, 64, 64),
+    new THREE.MeshPhongMaterial({
+      map:      makeEarthTexture(),
+      specular: new THREE.Color(0x334477),
+      shininess: 38,
+    })
+  );
+  scene.add(earth);
+
+  /* ── ATMOSPHERE ─────────────────────────────────────────────── */
+  scene.add(new THREE.Mesh(
+    new THREE.SphereGeometry(1.06, 32, 32),
+    new THREE.MeshPhongMaterial({ color:0x5599ff, opacity:0.10, transparent:true, depthWrite:false })
+  ));
+
+  /* ── OUTER GLOW ─────────────────────────────────────────────── */
+  scene.add(new THREE.Mesh(
+    new THREE.SphereGeometry(1.20, 32, 32),
+    new THREE.MeshBasicMaterial({ color:0x1133aa, opacity:0.06, transparent:true, side:THREE.BackSide, depthWrite:false })
+  ));
+
+  /* ── GOLD ORBITAL RINGS ─────────────────────────────────────── */
+  var gm = new THREE.MeshBasicMaterial({ color:0xe6c04a, opacity:0.65, transparent:true, depthWrite:false });
+
+  var ring1 = new THREE.Mesh(new THREE.TorusGeometry(1.30,0.0035,4,128), gm);
+  ring1.rotation.x = Math.PI/2.3; ring1.rotation.z = 0.3;
+  scene.add(ring1);
+
+  var ring2 = new THREE.Mesh(new THREE.TorusGeometry(1.18,0.0025,4,128), gm.clone());
+  ring2.rotation.x = Math.PI/3.5; ring2.rotation.y = Math.PI/5;
+  scene.add(ring2);
+
+  /* dot on ring 1 */
+  var dot = new THREE.Mesh(
+    new THREE.SphereGeometry(0.018,8,8),
+    new THREE.MeshBasicMaterial({ color:0xe6c04a })
+  );
+  dot.position.set(1.30,0,0); ring1.add(dot);
+
+  /* ── STARS ──────────────────────────────────────────────────── */
+  var sp2 = [];
+  for (var i=0;i<700;i++) sp2.push((Math.random()-0.5)*25,(Math.random()-0.5)*25,(Math.random()-0.5)*25);
+  var sg = new THREE.BufferGeometry();
+  sg.setAttribute('position', new THREE.Float32BufferAttribute(sp2,3));
+  var stars = new THREE.Points(sg, new THREE.PointsMaterial({ color:0xffffff, size:0.04, opacity:0.65, transparent:true }));
+  scene.add(stars);
+
+  /* ── LIGHTS ─────────────────────────────────────────────────── */
+  scene.add(new THREE.AmbientLight(0x223355, 0.55));
+  var sun = new THREE.DirectionalLight(0x6699ff, 1.3);
+  sun.position.set(5,3,4); scene.add(sun);
+  var gl = new THREE.PointLight(0xe6c04a,0.45,8);
+  gl.position.set(-3,-1,2); scene.add(gl);
+
+  /* ── RESIZE ─────────────────────────────────────────────────── */
+  function resize() {
+    var sz = canvas.offsetWidth || 900;
+    renderer.setSize(sz, sz);
+    camera.aspect = 1;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  /* ── ANIMATE ────────────────────────────────────────────────── */
+  var t = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    t += 0.004;
+    earth.rotation.y  += 0.0015;
+    ring1.rotation.z   = t * 0.22;
+    ring2.rotation.y   = t * 0.16;
+    stars.rotation.y   = t * 0.006;
+    renderer.render(scene, camera);
+  }
+  animate();
+})();
+</script>
 </body>
 </html>
