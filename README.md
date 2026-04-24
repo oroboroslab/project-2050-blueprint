@@ -1,6 +1,14 @@
 # Project 2050 — Civilization Blueprint
 
-Oroboros Labs — Office of the Architect
+![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen?style=flat-square&logo=github)
+![Classification](https://img.shields.io/badge/Classification-Level%205%20Civilization%20Class-002366?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Operational%20Blueprint-blue?style=flat-square)
+![Last Commit](https://img.shields.io/github/last-commit/oroboroslab/project-2050-blueprint?style=flat-square)
+
+**Oroboros Labs — Office of the Architect**
+
+**Live Site:** https://oroboroslab.github.io/project-2050-blueprint  
+**Companion:** https://oroboroslabs-ai.github.io/architect-suit
 
 **Classification:** CIVILIZATION CLASSIFICATION 5 — GOVERNMENT LEVEL
 **Distribution:** Architect Direct — No External Dissemination Without Authority
